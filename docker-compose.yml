@@ -1,0 +1,23 @@
+services:
+  qdrant:
+    image: qdrant/qdrant:latest
+    container_name: fluidorbit-qdrant
+    restart: unless-stopped
+    ports:
+      - "6333:6333" # REST API
+      - "6334:6334" # gRPC API
+    volumes:
+      - qdrant_data:/qdrant/storage
+      - ./docker/qdrant.yaml:/qdrant/config/config.yaml:ro
+    environment:
+      - QDRANT__LOG_LEVEL=INFO
+    healthcheck:
+      test: [ "CMD", "curl", "-f", "http://localhost:6333/health" ]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 10s
+
+volumes:
+  qdrant_data:
+    driver: local

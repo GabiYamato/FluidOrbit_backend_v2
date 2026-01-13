@@ -1,0 +1,35 @@
+# Qdrant Configuration for FluidOrbit
+# Documentation: https://qdrant.tech/documentation/guides/configuration/
+
+log_level: INFO
+
+storage:
+  # Storage path for the database
+  storage_path: /qdrant/storage
+  
+  # Optimizers configuration
+  optimizers:
+    # Threshold for triggering data indexing
+    default_segment_number: 2
+    # Maximum segment size in kilobytes
+    max_segment_size_kb: null
+    # Max merge threads
+    max_optimization_threads: 1
+    
+  # Write-ahead log configuration
+  wal:
+    wal_capacity_mb: 32
+    wal_segments_ahead: 0
+
+service:
+  # Maximum payload size in megabytes
+  max_request_size_mb: 32
+  # CORS headers for REST API
+  enable_cors: true
+  # gRPC interface configuration
+  grpc_port: 6334
+  # HTTP port
+  http_port: 6333
+
+# Telemetry (optional - disable for privacy)
+telemetry_disabled: true
